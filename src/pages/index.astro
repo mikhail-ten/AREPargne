@@ -1,68 +1,47 @@
 ---
-import Navigation from '../components/Navigation.astro';
+layout: '../layouts/BaseLayout.astro'
 ---
 
-<!doctype html>
-<html lang="fr" class="h-full">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <meta name="generator" content={Astro.generator} />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
-  <title>AREPargne - Guide des finances personnelles</title>
-  <meta name="description" content="Guide complet des finances personnelles pour améliorer vos connaissances sur l'épargne, les investissements et la retraite." />
-</head>
-<body class="font-inter bg-white text-gray-900 h-full">
-  <div class="flex h-screen">
-    <Navigation currentPath="/" />
-    
-    <main class="flex-1 overflow-y-auto">
-      <div class="max-w-4xl mx-auto px-6 py-8 lg:px-8 lg:py-12">
-        <div class="text-center mb-16">
-          <h1 class="text-5xl font-bold text-gray-900 mb-6">AREPargne</h1>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Votre guide complet pour maîtriser les finances personnelles. Apprenez à gérer votre épargne, 
-            comprendre les investissements et préparer sereinement votre retraite.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8 mb-16">
-          <div class="bg-blue-50 p-8 rounded-xl border border-blue-100">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4">📊 Épargne & Budgets</h2>
-            <p class="text-gray-600 mb-4">Maîtrisez les bases de la gestion financière avec nos guides pratiques sur la création de budgets et la constitution d'une épargne de précaution.</p>
-            <a href="/epargne/types-comptes" class="text-blue-600 font-medium hover:text-blue-700 transition-colors">Commencer →</a>
-          </div>
-
-          <div class="bg-green-50 p-8 rounded-xl border border-green-100">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4">📈 Investissements</h2>
-            <p class="text-gray-600 mb-4">Découvrez le monde des investissements : actions, obligations, diversification et stratégies pour faire fructifier votre capital.</p>
-            <a href="/investissements/marche-actions" class="text-green-600 font-medium hover:text-green-700 transition-colors">Explorer →</a>
-          </div>
-
-          <div class="bg-purple-50 p-8 rounded-xl border border-purple-100">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4">🏦 Retraite</h2>
-            <p class="text-gray-600 mb-4">Anticipez votre retraite avec nos conseils sur les systèmes de retraite, les complémentaires et la planification long terme.</p>
-            <a href="/retraite/systeme-retraite" class="text-purple-600 font-medium hover:text-purple-700 transition-colors">Planifier →</a>
-          </div>
-
-          <div class="bg-orange-50 p-8 rounded-xl border border-orange-100">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4">🎯 Objectifs</h2>
-            <p class="text-gray-600 mb-4">Apprenez à définir des objectifs financiers clairs et réalisables pour construire votre indépendance financière.</p>
-            <a href="/introduction/objectifs-financiers" class="text-orange-600 font-medium hover:text-orange-700 transition-colors">Définir →</a>
-          </div>
-        </div>
-
-        <div class="bg-gray-50 p-8 rounded-xl text-center">
-          <h2 class="text-2xl font-semibold text-gray-900 mb-4">Prêt à commencer votre apprentissage ?</h2>
-          <p class="text-gray-600 mb-6">Commencez par les bases avec notre introduction aux finances personnelles.</p>
-          <a href="/introduction/pourquoi-finances" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors inline-block">
-            Commencer le guide
-          </a>
-        </div>
-      </div>
-    </main>
+<div class="max-w-4xl mx-auto px-6 py-8 lg:px-8 lg:py-12">
+  <div class="text-center mb-16">
+    <h1 class="text-5xl font-bold text-gray-900 mb-6">AREPargne</h1>
+    <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+      Votre guide complet pour maîtriser les finances personnelles. Apprenez à gérer votre épargne,
+      comprendre les investissements et préparer sereinement votre retraite.
+    </p>
   </div>
-</body>
-</html>
+
+  <div class="grid md:grid-cols-2 gap-8 mb-16">
+    <div class="bg-blue-50 p-8 rounded-xl border border-blue-100">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">📊 Épargne & Budgets</h2>
+      <p class="text-gray-600 mb-4">Maîtrisez les bases de la gestion financière avec nos guides pratiques sur la création de budgets et la constitution d'une épargne de précaution.</p>
+      <a href="/epargne/types-comptes" class="text-blue-600 font-medium hover:text-blue-700 transition-colors">Commencer →</a>
+    </div>
+
+    <div class="bg-green-50 p-8 rounded-xl border border-green-100">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">📈 Investissements</h2>
+      <p class="text-gray-600 mb-4">Découvrez le monde des investissements : actions, obligations, diversification et stratégies pour faire fructifier votre capital.</p>
+      <a href="/investissements/marche-actions" class="text-green-600 font-medium hover:text-green-700 transition-colors">Explorer →</a>
+    </div>
+
+    <div class="bg-purple-50 p-8 rounded-xl border border-purple-100">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">🏦 Retraite</h2>
+      <p class="text-gray-600 mb-4">Anticipez votre retraite avec nos conseils sur les systèmes de retraite, les complémentaires et la planification long terme.</p>
+      <a href="/retraite/systeme-retraite" class="text-purple-600 font-medium hover:text-purple-700 transition-colors">Planifier →</a>
+    </div>
+
+    <div class="bg-orange-50 p-8 rounded-xl border border-orange-100">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">🎯 Objectifs</h2>
+      <p class="text-gray-600 mb-4">Apprenez à définir des objectifs financiers clairs et réalisables pour construire votre indépendance financière.</p>
+      <a href="/introduction/objectifs-financiers" class="text-orange-600 font-medium hover:text-orange-700 transition-colors">Définir →</a>
+    </div>
+  </div>
+
+  <div class="bg-gray-50 p-8 rounded-xl text-center">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-4">Prêt à commencer votre apprentissage ?</h2>
+    <p class="text-gray-600 mb-6">Commencez par les bases avec notre introduction aux finances personnelles.</p>
+    <a href="/introduction/pourquoi-finances" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors inline-block">
+      Commencer le guide
+    </a>
+  </div>
+</div>
