@@ -126,25 +126,25 @@ function isCurrentChapter(chapterId) {
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Desktop navigation toggle functionality
-    const chapterToggles = document.querySelectorAll('.chapter-toggle');
-    chapterToggles.forEach(toggle => {
-      toggle.addEventListener('click', function() {
-        const chapterId = this.getAttribute('data-chapter');
-        const subchapters = document.querySelector(`[data-subchapters="${chapterId}"]`);
-        const icon = this.querySelector('svg');
-        
-        if (subchapters.classList.contains('hidden')) {
-          subchapters.classList.remove('hidden');
-          icon.classList.add('rotate-90');
-          this.setAttribute('aria-expanded', 'true');
-        } else {
-          subchapters.classList.add('hidden');
-          icon.classList.remove('rotate-90');
-          this.setAttribute('aria-expanded', 'false');
-        }
+    // Utility to handle chapter submenu toggles
+    function setupChapterToggle(selector, subchapterAttr) {
+      const toggles = document.querySelectorAll(selector);
+      toggles.forEach(toggle => {
+        toggle.addEventListener('click', function () {
+          const chapterId = this.getAttribute('data-chapter');
+          const subchapters = document.querySelector(`[${subchapterAttr}="${chapterId}"]`);
+          const icon = this.querySelector('svg');
+          const isHidden = subchapters.classList.contains('hidden');
+
+          subchapters.classList.toggle('hidden');
+          icon.classList.toggle('rotate-90');
+          this.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+        });
       });
-    });
+    }
+
+    // Desktop navigation toggle functionality
+    setupChapterToggle('.chapter-toggle', 'data-subchapters');
 
     // Mobile navigation functionality
     const mobileNavToggle = document.getElementById('mobile-nav-toggle');
@@ -174,24 +174,7 @@ function isCurrentChapter(chapterId) {
     mobileNavBackdrop?.addEventListener('click', closeMobileNav);
 
     // Mobile chapter toggles
-    const mobileChapterToggles = document.querySelectorAll('.mobile-chapter-toggle');
-    mobileChapterToggles.forEach(toggle => {
-      toggle.addEventListener('click', function() {
-        const chapterId = this.getAttribute('data-chapter');
-        const subchapters = document.querySelector(`[data-mobile-subchapters="${chapterId}"]`);
-        const icon = this.querySelector('svg');
-        
-        if (subchapters.classList.contains('hidden')) {
-          subchapters.classList.remove('hidden');
-          icon.classList.add('rotate-90');
-          this.setAttribute('aria-expanded', 'true');
-        } else {
-          subchapters.classList.add('hidden');
-          icon.classList.remove('rotate-90');
-          this.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
+    setupChapterToggle('.mobile-chapter-toggle', 'data-mobile-subchapters');
 
     // Close mobile nav when clicking on a link
     const mobileNavLinks = document.querySelectorAll('#mobile-nav a');
