@@ -10,55 +10,31 @@ export interface NavigationItem {
   sousChapitre: SubChapitre[];
 }
 
-const slugify = (str: string) =>
-  str
-    .replace(/&/g, ' et ')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
-
-const chapitreSlug = (chapitre: string) => slugify(chapitre.replace(/^[IVX]+\.?\s*/, ''));
-
-const createNavigationItem = (
-  chapitre: string,
-  subLabels: string[],
-): NavigationItem => {
-  const slug = chapitreSlug(chapitre);
-  return {
-    chapitre,
-    slug,
-    sousChapitre: subLabels.map((label) => ({
-      label,
-      href: `/${slug}/${slugify(label)}`,
-    })),
+interface PageModule {
+  frontmatter: {
+    title: string;
   };
-};
+}
 
-export const navigation: NavigationItem[] = [
-  createNavigationItem('I. Epargne salariale', [
-    'Épargne salariale & ETF',
-    'PEA et épargne sécurisée',
-  ]),
-  createNavigationItem('II. Feuille de route', [
-    'Diversification internationale & fonds indiciels',
-    'Immobilier locatif & plan épargne retraite',
-  ]),
-  createNavigationItem("III. Bases de l'investissement", [
-    'Analyse fondamentale & fiscalité',
-    "Effet de levier & allocation d'actifs",
-  ]),
-  createNavigationItem("IV. Supports d'investissement", [
-    'Crowdfunding & micro-épargne',
-    'Placements à court terme & inflation',
-  ]),
-  createNavigationItem('V. Retraite', [
-    'Stratégie buy and hold & revenu passif',
-    'Cryptomonnaies & sécurité numérique',
-  ]),
-  createNavigationItem('VI. Guides pratiques', [
-    'Assurance emprunteur & refinancement',
-    'Épargne de précaution & retraite anticipée',
-  ]),
-];
+const modules = import.meta.glob<PageModule>('../pages/*/*.mdx', {
+  eager: true,
+});
+
+export const navigation: NavigationItem[] = Object.entries(modules).reduce(
+  (acc: NavigationItem[], [path, module]) => {
+    const [, , chapitre, file] = path.split('/');
+    const slug = chapitre;
+    const href = `/${chapitre}/${file.replace(/\\.mdx$/, '')}`;
+    const label = module.frontmatter.title;
+
+    let item = acc.find((i) => i.chapitre === chapitre);
+    if (!item) {
+      item = { chapitre, slug, sousChapitre: [] };
+      acc.push(item);
+    }
+
+    item.sousChapitre.push({ label, href });
+    return acc;
+  },
+  [],
+);
