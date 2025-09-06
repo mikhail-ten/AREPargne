@@ -24,9 +24,11 @@ const { title, description, lang = 'fr' } = Astro.props as Props;
       })();
     </script>
   </head>
-  <body>
+  <body class="bg-gray-100 text-gray-800 dark:bg-black dark:text-gray-200">
     <Header />
-    <slot />
+    <main class="max-w-7xl mx-auto px-4">
+      <slot />
+    </main>
     <Footer />
     <script is:inline>
       function toggleTheme() {
