@@ -5,6 +5,7 @@ export interface SubChapitre {
 
 export interface NavigationItem {
   chapitre: string;
+  shortTitle?: string;
   sousChapitre: SubChapitre[];
 }
 
