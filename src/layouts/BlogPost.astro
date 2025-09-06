@@ -11,10 +11,19 @@ interface Props {
   pubDate: Date;
   updatedDate?: Date;
   heroImage?: ImageMetadata;
+  heroAlt?: string;
   lang?: string;
 }
 
-const { title, description, pubDate, updatedDate, heroImage, lang = 'fr' } = Astro.props as Props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  heroAlt,
+  lang = 'fr',
+} = Astro.props as Props;
 ---
 
 <html lang={lang}>
@@ -65,9 +74,16 @@ const { title, description, pubDate, updatedDate, heroImage, lang = 'fr' } = Ast
 		<Header />
 		<main>
 			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
+                                <div class="hero-image">
+                                        {heroImage && (
+                                                <Image
+                                                        width={1020}
+                                                        height={510}
+                                                        src={heroImage}
+                                                        alt={heroAlt ?? title}
+                                                />
+                                        )}
+                                </div>
 				<div class="prose">
 					<div class="title">
 						<div class="date">
