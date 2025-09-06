@@ -4,57 +4,59 @@ import HeaderLink from './HeaderLink.astro';
 import { navigation } from '../data/navigation';
 ---
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-<header x-data="{ open: false }" class="bg-neutral-100 dark:bg-neutral-800 shadow-md px-4 md:px-6 py-2">
-  <nav class="flex items-center justify-between">
-    <h2 class="m-0 text-lg font-semibold text-accent-700 dark:text-accent-400">
-      <a href="/" class="transition-colors hover:text-accent-500 dark:hover:text-accent-300">{SITE_TITLE}</a>
-    </h2>
-    <div class="flex items-center gap-2">
-      <button
-        aria-label="Toggle theme"
-        class="text-neutral-700 dark:text-neutral-200"
-        onclick="toggleTheme()"
-      >
-        🌓
-      </button>
-      <button class="md:hidden text-neutral-700 dark:text-neutral-200" @click="open = !open">
-        <svg x-show="!open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-        <svg x-show="open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-      </button>
-    </div>
-    <div class="hidden md:flex md:items-center md:space-x-4">
-      <HeaderLink href="/" class="px-3 py-2 text-neutral-700 transition-colors hover:text-accent-700 dark:text-neutral-200 dark:hover:text-accent-400">Home</HeaderLink>
-      <HeaderLink href="/about" class="px-3 py-2 text-neutral-700 transition-colors hover:text-accent-700 dark:text-neutral-200 dark:hover:text-accent-400">About</HeaderLink>
-      {navigation.map((section) => (
-        <div class="relative group">
-          <button class="px-3 py-2 text-neutral-700 transition-colors hover:text-accent-700 dark:text-neutral-200 dark:hover:text-accent-400">{section.chapitre}</button>
-          <div class="absolute left-0 mt-2 hidden flex-col bg-neutral-100 dark:bg-neutral-800 shadow-lg group-hover:flex">
-            {section.sousChapitre.map((sub) => (
-              <HeaderLink href={sub.href} class="whitespace-nowrap px-4 py-2 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700 dark:text-neutral-200 dark:hover:bg-accent-950 dark:hover:text-accent-400">{sub.label}</HeaderLink>
-            ))}
+<header x-data="{ open: false }" class="bg-neutral-100 dark:bg-neutral-800 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-2">
+    <nav class="flex items-center justify-between">
+      <h2 class="m-0 text-lg font-semibold text-accent-700 dark:text-accent-400">
+        <a href="/" class="transition-colors hover:text-accent-500 dark:hover:text-accent-300">{SITE_TITLE}</a>
+      </h2>
+      <div class="flex items-center gap-2">
+        <button
+          aria-label="Toggle theme"
+          class="text-neutral-700 dark:text-neutral-200"
+          onclick="toggleTheme()"
+        >
+          🌓
+        </button>
+        <button class="md:hidden text-neutral-700 dark:text-neutral-200" @click="open = !open">
+          <svg x-show="!open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+          <svg x-show="open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div class="hidden md:flex md:items-center md:space-x-4">
+        <HeaderLink href="/" class="px-3 py-2 text-neutral-700 transition-colors hover:text-accent-700 dark:text-neutral-200 dark:hover:text-accent-400">Home</HeaderLink>
+        <HeaderLink href="/about" class="px-3 py-2 text-neutral-700 transition-colors hover:text-accent-700 dark:text-neutral-200 dark:hover:text-accent-400">About</HeaderLink>
+        {navigation.map((section) => (
+          <div class="relative group">
+            <button class="px-3 py-2 text-neutral-700 transition-colors hover:text-accent-700 dark:text-neutral-200 dark:hover:text-accent-400">{section.chapitre}</button>
+            <div class="absolute left-0 mt-2 hidden flex-col bg-neutral-100 dark:bg-neutral-800 shadow-lg group-hover:flex">
+              {section.sousChapitre.map((sub) => (
+                <HeaderLink href={sub.href} class="whitespace-nowrap px-4 py-2 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700 dark:text-neutral-200 dark:hover:bg-accent-950 dark:hover:text-accent-400">{sub.label}</HeaderLink>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
-  </nav>
-  <div class="md:hidden" x-show="open">
-    <div class="mt-2 flex flex-col space-y-1">
-      <HeaderLink href="/" class="px-3 py-2 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700 dark:text-neutral-200 dark:hover:bg-accent-950 dark:hover:text-accent-400">Home</HeaderLink>
-      <HeaderLink href="/about" class="px-3 py-2 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700 dark:text-neutral-200 dark:hover:bg-accent-950 dark:hover:text-accent-400">About</HeaderLink>
-      {navigation.map((section) => (
-        <div x-data="{ subOpen: false }" class="text-neutral-700 dark:text-neutral-200">
-          <button @click="subOpen = !subOpen" class="flex w-full items-center justify-between px-3 py-2 transition-colors hover:text-accent-700 dark:hover:text-accent-400">
-            <span>{section.chapitre}</span>
-            <svg x-show="!subOpen" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m7-7H5" /></svg>
-            <svg x-show="subOpen" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14" /></svg>
-          </button>
-          <div x-show="subOpen" class="flex flex-col pl-4">
-            {section.sousChapitre.map((sub) => (
-              <HeaderLink href={sub.href} class="px-3 py-1 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700 dark:text-neutral-200 dark:hover:bg-accent-950 dark:hover:text-accent-400">{sub.label}</HeaderLink>
-            ))}
+        ))}
+      </div>
+    </nav>
+    <div class="md:hidden" x-show="open">
+      <div class="mt-2 flex flex-col space-y-1">
+        <HeaderLink href="/" class="px-3 py-2 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700 dark:text-neutral-200 dark:hover:bg-accent-950 dark:hover:text-accent-400">Home</HeaderLink>
+        <HeaderLink href="/about" class="px-3 py-2 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700 dark:text-neutral-200 dark:hover:bg-accent-950 dark:hover:text-accent-400">About</HeaderLink>
+        {navigation.map((section) => (
+          <div x-data="{ subOpen: false }" class="text-neutral-700 dark:text-neutral-200">
+            <button @click="subOpen = !subOpen" class="flex w-full items-center justify-between px-3 py-2 transition-colors hover:text-accent-700 dark:hover:text-accent-400">
+              <span>{section.chapitre}</span>
+              <svg x-show="!subOpen" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m7-7H5" /></svg>
+              <svg x-show="subOpen" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14" /></svg>
+            </button>
+            <div x-show="subOpen" class="flex flex-col pl-4">
+              {section.sousChapitre.map((sub) => (
+                <HeaderLink href={sub.href} class="px-3 py-1 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700 dark:text-neutral-200 dark:hover:bg-accent-950 dark:hover:text-accent-400">{sub.label}</HeaderLink>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
 </header>
