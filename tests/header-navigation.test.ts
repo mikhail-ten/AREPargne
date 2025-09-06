@@ -5,6 +5,6 @@
  * 1. Exécuter `npm run dev`.
  * 2. Ouvrir la page d'accueil dans un navigateur.
  * 3. Dans l'en-tête, s'assurer que les chapitres I à VI sont présents.
- * 4. Pour chaque chapitre, cliquer et vérifier que "Sous-chapitre 1" et "Sous-chapitre 2" apparaissent avec les bons liens.
+ * 4. Pour chaque chapitre, cliquer et vérifier que les sous-chapitres affichent les titres définis dans `src/data/navigation.ts` avec les bons liens.
  */
 export {};
