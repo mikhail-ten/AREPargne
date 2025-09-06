@@ -29,7 +29,7 @@ import { navigation } from '../data/navigation';
         {navigation.map((section) => (
           <div class="relative group">
             <button class="px-3 py-2 text-neutral-700 transition-colors hover:text-accent-700 dark:text-neutral-200 dark:hover:text-accent-400">{section.chapitre}</button>
-            <div class="absolute left-0 mt-2 hidden flex-col bg-neutral-100 dark:bg-neutral-800 shadow-lg group-hover:flex">
+            <div class="absolute left-0 top-full hidden flex-col bg-neutral-100 dark:bg-neutral-800 shadow-lg group-hover:flex py-2">
               {section.sousChapitre.map((sub) => (
                 <HeaderLink href={sub.href} class="whitespace-nowrap px-4 py-2 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700 dark:text-neutral-200 dark:hover:bg-accent-950 dark:hover:text-accent-400">{sub.label}</HeaderLink>
               ))}
