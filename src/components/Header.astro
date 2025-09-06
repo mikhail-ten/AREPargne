@@ -1,6 +1,7 @@
 ---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+import { navigation } from '../data/navigation';
 ---
 
 <header>
@@ -9,48 +10,16 @@ import HeaderLink from './HeaderLink.astro';
                 <div class="internal-links">
                         <HeaderLink href="/">Home</HeaderLink>
                         <HeaderLink href="/about">About</HeaderLink>
-                        <details>
-                                <summary>Chapitre I</summary>
-                                <div class="dropdown">
-                                        <HeaderLink href="/chapitre-I/sous-chapitre-1">Sous-chapitre 1</HeaderLink>
-                                        <HeaderLink href="/chapitre-I/sous-chapitre-2">Sous-chapitre 2</HeaderLink>
-                                </div>
-                        </details>
-                        <details>
-                                <summary>Chapitre II</summary>
-                                <div class="dropdown">
-                                        <HeaderLink href="/chapitre-II/sous-chapitre-1">Sous-chapitre 1</HeaderLink>
-                                        <HeaderLink href="/chapitre-II/sous-chapitre-2">Sous-chapitre 2</HeaderLink>
-                                </div>
-                        </details>
-                        <details>
-                                <summary>Chapitre III</summary>
-                                <div class="dropdown">
-                                        <HeaderLink href="/chapitre-III/sous-chapitre-1">Sous-chapitre 1</HeaderLink>
-                                        <HeaderLink href="/chapitre-III/sous-chapitre-2">Sous-chapitre 2</HeaderLink>
-                                </div>
-                        </details>
-                        <details>
-                                <summary>Chapitre IV</summary>
-                                <div class="dropdown">
-                                        <HeaderLink href="/chapitre-IV/sous-chapitre-1">Sous-chapitre 1</HeaderLink>
-                                        <HeaderLink href="/chapitre-IV/sous-chapitre-2">Sous-chapitre 2</HeaderLink>
-                                </div>
-                        </details>
-                        <details>
-                                <summary>Chapitre V</summary>
-                                <div class="dropdown">
-                                        <HeaderLink href="/chapitre-V/sous-chapitre-1">Sous-chapitre 1</HeaderLink>
-                                        <HeaderLink href="/chapitre-V/sous-chapitre-2">Sous-chapitre 2</HeaderLink>
-                                </div>
-                        </details>
-                        <details>
-                                <summary>Chapitre VI</summary>
-                                <div class="dropdown">
-                                        <HeaderLink href="/chapitre-VI/sous-chapitre-1">Sous-chapitre 1</HeaderLink>
-                                        <HeaderLink href="/chapitre-VI/sous-chapitre-2">Sous-chapitre 2</HeaderLink>
-                                </div>
-                        </details>
+                        {navigation.map((section) => (
+                                <details>
+                                        <summary>{section.chapitre}</summary>
+                                        <div class="dropdown">
+                                                {section.sousChapitre.map((sub) => (
+                                                        <HeaderLink href={sub.href}>{sub.label}</HeaderLink>
+                                                ))}
+                                        </div>
+                                </details>
+                        ))}
                 </div>
                 <div class="social-links">
 			<a href="https://m.webtoo.ls/@astro" target="_blank">
