@@ -3,81 +3,49 @@ import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 import { navigation } from '../data/navigation';
 ---
-
-<header>
-	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
-                <div class="internal-links">
-                        <HeaderLink href="/">Home</HeaderLink>
-                        <HeaderLink href="/about">About</HeaderLink>
-                        {navigation.map((section) => (
-                                <details>
-                                        <summary>{section.chapitre}</summary>
-                                        <div class="dropdown">
-                                                {section.sousChapitre.map((sub) => (
-                                                        <HeaderLink href={sub.href}>{sub.label}</HeaderLink>
-                                                ))}
-                                        </div>
-                                </details>
-                        ))}
-                </div>
-	</nav>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<header x-data="{ open: false }" class="bg-white shadow-md px-4 md:px-6 py-2">
+  <nav class="flex items-center justify-between">
+    <h2 class="m-0 text-lg font-semibold text-purple-700">
+      <a href="/" class="transition-colors hover:text-purple-500">{SITE_TITLE}</a>
+    </h2>
+    <button class="md:hidden text-gray-700" @click="open = !open">
+      <svg x-show="!open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+      <svg x-show="open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+    <div class="hidden md:flex md:items-center md:space-x-4">
+      <HeaderLink href="/" class="px-3 py-2 text-gray-700 transition-colors hover:text-purple-700">Home</HeaderLink>
+      <HeaderLink href="/about" class="px-3 py-2 text-gray-700 transition-colors hover:text-purple-700">About</HeaderLink>
+      {navigation.map((section) => (
+        <div class="relative group">
+          <button class="px-3 py-2 text-gray-700 transition-colors hover:text-purple-700">{section.chapitre}</button>
+          <div class="absolute left-0 mt-2 hidden flex-col bg-white shadow-lg group-hover:flex">
+            {section.sousChapitre.map((sub) => (
+              <HeaderLink href={sub.href} class="whitespace-nowrap px-4 py-2 text-gray-700 transition-colors hover:bg-purple-50 hover:text-purple-700">{sub.label}</HeaderLink>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </nav>
+  <div class="md:hidden" x-show="open">
+    <div class="mt-2 flex flex-col space-y-1">
+      <HeaderLink href="/" class="px-3 py-2 text-gray-700 transition-colors hover:bg-purple-50 hover:text-purple-700">Home</HeaderLink>
+      <HeaderLink href="/about" class="px-3 py-2 text-gray-700 transition-colors hover:bg-purple-50 hover:text-purple-700">About</HeaderLink>
+      {navigation.map((section) => (
+        <div x-data="{ subOpen: false }" class="text-gray-700">
+          <button @click="subOpen = !subOpen" class="flex w-full items-center justify-between px-3 py-2 transition-colors hover:text-purple-700">
+            <span>{section.chapitre}</span>
+            <svg x-show="!subOpen" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m7-7H5" /></svg>
+            <svg x-show="subOpen" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14" /></svg>
+          </button>
+          <div x-show="subOpen" class="flex flex-col pl-4">
+            {section.sousChapitre.map((sub) => (
+              <HeaderLink href={sub.href} class="px-3 py-1 text-gray-700 transition-colors hover:bg-purple-50 hover:text-purple-700">{sub.label}</HeaderLink>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
 </header>
-<style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
-
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
-        nav a.active {
-                text-decoration: none;
-                border-bottom-color: var(--accent);
-        }
-        .internal-links details {
-                position: relative;
-                display: inline-block;
-        }
-        .internal-links summary {
-                padding: 1em 0.5em;
-                list-style: none;
-                cursor: pointer;
-        }
-        .internal-links summary::-webkit-details-marker {
-                display: none;
-        }
-        .internal-links details > .dropdown {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                background: white;
-                box-shadow: 0 2px 8px rgba(var(--black), 5%);
-        }
-        .internal-links details[open] > .dropdown {
-                display: flex;
-        }
-        .internal-links details > .dropdown a {
-                padding: 0.5em 1em;
-                white-space: nowrap;
-        }
-</style>
