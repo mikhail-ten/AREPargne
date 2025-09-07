@@ -4,7 +4,7 @@ import HeaderLink from './HeaderLink.astro';
 import { navigation } from '../data/navigation';
 ---
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-<header x-data="{ open: false }" class="bg-neutral-100 font-sans shadow-md">
+<header x-data="{ open: false }" class="bg-white font-sans shadow-md">
   <div class="w-full px-4 py-2">
     <nav class="flex flex-nowrap items-center justify-start gap-4 overflow-x-auto overflow-y-visible">
         <h2 class="m-0 text-lg font-semibold text-accent-700">
@@ -22,7 +22,7 @@ import { navigation } from '../data/navigation';
         {navigation.map((section) => (
           <div class="relative group">
               <button class="px-3 py-2 text-neutral-700 transition-colors hover:text-accent-700 whitespace-nowrap">{section.shortTitle ?? section.chapitre}</button>
-              <div class="absolute left-0 top-full hidden flex-col bg-neutral-100 shadow-lg group-hover:flex py-2">
+              <div class="absolute left-0 top-full hidden flex-col bg-white shadow-lg group-hover:flex py-2">
                 {section.sousChapitre.map((sub) => (
                   <HeaderLink href={sub.href} class="whitespace-nowrap px-4 py-2 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700">{sub.label}</HeaderLink>
               ))}
