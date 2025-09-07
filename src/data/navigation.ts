@@ -16,20 +16,31 @@ interface PageModule {
   };
 }
 
-const modules = import.meta.glob<PageModule>('../pages/*/*.mdx', {
+interface MetaModule {
+  default: {
+    title: string;
+  };
+}
+
+const pageModules = import.meta.glob<PageModule>('../pages/*/*.mdx', {
   eager: true,
 });
 
-export const navigation: NavigationItem[] = Object.entries(modules).reduce(
+const metaModules = import.meta.glob<MetaModule>(
+  '../pages/*/metadata.ts',
+  { eager: true },
+);
+
+export const navigation: NavigationItem[] = Object.entries(pageModules).reduce(
   (acc: NavigationItem[], [path, module]) => {
-    const [, , chapitre, file] = path.split('/');
-    const slug = chapitre;
-    const href = `/${chapitre}/${file.replace(/\\.mdx$/, '')}`;
+    const [, , slug, file] = path.split('/');
+    const href = `/${slug}/${file.replace(/\\.mdx$/, '')}`;
     const label = module.frontmatter.title;
 
-    let item = acc.find((i) => i.chapitre === chapitre);
+    let item = acc.find((i) => i.slug === slug);
     if (!item) {
-      item = { chapitre, slug, sousChapitre: [] };
+      const meta = metaModules[`../pages/${slug}/metadata.ts`];
+      item = { chapitre: meta.default.title, slug, sousChapitre: [] };
       acc.push(item);
     }
 
