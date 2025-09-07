@@ -20,11 +20,31 @@ import { navigation } from '../data/navigation';
         <HeaderLink href="/" class="px-3 py-2 text-neutral-700 transition-colors hover:text-accent-700">Home</HeaderLink>
         <HeaderLink href="/about" class="px-3 py-2 text-neutral-700 transition-colors hover:text-accent-700">About</HeaderLink>
         {navigation.map((section) => (
-          <div class="relative group">
-              <button class="px-3 py-2 text-neutral-700 transition-colors hover:text-accent-700 whitespace-nowrap">{section.shortTitle ?? section.chapitre}</button>
-              <div class="absolute left-0 top-full hidden flex-col bg-white shadow-lg group-hover:flex py-2">
-                {section.sousChapitre.map((sub) => (
-                  <HeaderLink href={sub.href} class="whitespace-nowrap px-4 py-2 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700">{sub.label}</HeaderLink>
+          <div
+            x-data="{ subOpen: false }"
+            @focusout="if(!$el.contains($event.relatedTarget)) subOpen = false"
+            class="relative"
+          >
+            <button
+              @click="subOpen = !subOpen"
+              aria-haspopup="true"
+              :aria-expanded="subOpen.toString()"
+              class="px-3 py-2 text-neutral-700 transition-colors hover:text-accent-700 whitespace-nowrap"
+            >
+              {section.shortTitle ?? section.chapitre}
+            </button>
+            <div
+              x-show="subOpen"
+              @click.outside="subOpen = false"
+              class="absolute left-0 top-full z-10 flex flex-col bg-white shadow-lg py-2"
+            >
+              {section.sousChapitre.map((sub) => (
+                <HeaderLink
+                  href={sub.href}
+                  class="whitespace-nowrap px-4 py-2 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700"
+                >
+                  {sub.label}
+                </HeaderLink>
               ))}
             </div>
           </div>
@@ -37,14 +57,24 @@ import { navigation } from '../data/navigation';
         <HeaderLink href="/about" class="px-3 py-2 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700">About</HeaderLink>
         {navigation.map((section) => (
           <div x-data="{ subOpen: false }" class="text-neutral-700">
-            <button @click="subOpen = !subOpen" class="flex w-full items-center justify-between px-3 py-2 transition-colors hover:text-accent-700">
+            <button
+              @click="subOpen = !subOpen"
+              aria-haspopup="true"
+              :aria-expanded="subOpen.toString()"
+              class="flex w-full items-center justify-between px-3 py-2 transition-colors hover:text-accent-700"
+            >
               <span class="whitespace-nowrap">{section.shortTitle ?? section.chapitre}</span>
               <svg x-show="!subOpen" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m7-7H5" /></svg>
               <svg x-show="subOpen" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14" /></svg>
             </button>
             <div x-show="subOpen" class="flex flex-col pl-4">
               {section.sousChapitre.map((sub) => (
-                <HeaderLink href={sub.href} class="px-3 py-1 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700">{sub.label}</HeaderLink>
+                <HeaderLink
+                  href={sub.href}
+                  class="px-3 py-1 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700"
+                >
+                  {sub.label}
+                </HeaderLink>
               ))}
             </div>
           </div>
