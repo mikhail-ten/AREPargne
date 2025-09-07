@@ -1,1 +1,1 @@
-export default { title: "'IV. Supports d'investissement" };
+export default { title: "IV. Supports d'investissement" };
