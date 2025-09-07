@@ -4,29 +4,22 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <main class="p-4 space-y-4">
-    <h1 class="text-3xl font-bold text-accent-700">🧑‍🚀 Hello, Astronaut!</h1>
+    <h1 class="text-3xl font-bold text-accent-700">💼 Épargne salariale & personnelle — AREP</h1>
     <p class="text-neutral-700">
-      Welcome to the official <a href="https://astro.build/">Astro</a> starter template. This
-      template serves as a lightweight, minimally-styled starting point for anyone looking to build
-      a personal website or portfolio with Astro.
+      Bienvenue ! Ce site rassemble des repères simples et pratiques pour les salarié·e·s d’AREP : comprendre l’épargne salariale (intéressement, participation, PEE, PER collectif, abondement) et l’épargne personnelle (PEA, assurance-vie, etc.), puis passer à l’action.
     </p>
-    <p class="text-neutral-700">
-      This template comes with a few integrations already configured in your
-      <code>astro.config.mjs</code> file. You can customize your setup with
-      <a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-      React, or Vue to your project.
-    </p>
-    <p class="text-neutral-700">Here are a few ideas on how to get started with the template:</p>
+    <p class="text-neutral-700">Pour bien démarrer le contenu :</p>
     <ul class="list-disc space-y-1 pl-6 text-neutral-700">
-      <li>Edit this page in <code>src/pages/index.astro</code></li>
-      <li>Edit the site header items in <code>src/components/Header.astro</code></li>
-      <li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-      <li>Start organizing content in <code>src/pages/epargne-salariale/</code> and other chapter folders</li>
+      <li>Personnalise cette page dans <code>src/pages/index.astro</code></li>
+      <li>Mets à jour le menu dans <code>src/components/Header.astro</code> (rubriques : Épargne salariale, Épargne perso, Outils, FAQ)</li>
+      <li>Ajoute ta signature dans le pied de page <code>src/components/Footer.astro</code></li>
+      <li>Organise les chapitres dans <code>src/pages/epargne-salariale/</code> et <code>src/pages/epargne-personnelle/</code> (PEE, PER collectif, Intéressement/Participation, PEA, Assurance-vie…)</li>
     </ul>
     <p class="text-neutral-700">
-      Have fun! If you get stuck, remember to
-      <a href="https://docs.astro.build/" class="text-accent-700">read the docs</a>
-      or <a href="https://astro.build/chat" class="text-accent-700">join us on Discord</a> to ask questions.
+      Besoin d’aide côté technique ? Consulte la
+      <a href="https://docs.astro.build/" class="text-accent-700">documentation Astro</a>.
+      Pour le fond, réfère-toi aux accords d’entreprise AREP et aux communications RH.
     </p>
   </main>
 </BaseLayout>
+
