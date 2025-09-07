@@ -34,7 +34,7 @@ const metaModules = import.meta.glob<MetaModule>(
 export const navigation: NavigationItem[] = Object.entries(pageModules).reduce(
   (acc: NavigationItem[], [path, module]) => {
     const [, , slug, file] = path.split('/');
-    const href = `/${slug}/${file.replace(/\\.mdx$/, '')}`;
+    const href = `/${slug}/${file.replace(/\.mdx$/, '')}`;
     const label = module.frontmatter.title;
 
     let item = acc.find((i) => i.slug === slug);
