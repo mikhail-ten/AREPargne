@@ -22,17 +22,22 @@ interface MetaModule {
   };
 }
 
-const pageModules = import.meta.glob<PageModule>('../pages/*/*.mdx', {
-  eager: true,
-});
+const pageModules = import.meta.glob<PageModule>('../pages/*/*.mdx');
 
 const metaModules = import.meta.glob<MetaModule>(
   '../pages/*/metadata.ts',
   { eager: true },
 );
 
-export const navigation: NavigationItem[] = Object.entries(pageModules).reduce(
-  (acc: NavigationItem[], [path, module]) => {
+export async function getNavigation(): Promise<NavigationItem[]> {
+  const entries = await Promise.all(
+    Object.entries(pageModules).map(async ([path, loader]) => {
+      const module = await loader();
+      return [path, module] as [string, PageModule];
+    }),
+  );
+
+  return entries.reduce((acc: NavigationItem[], [path, module]) => {
     const [, , slug, file] = path.split('/');
     const href = `/${slug}/${file.replace(/\.mdx$/, '')}`;
     const label = module.frontmatter.title;
@@ -46,6 +51,5 @@ export const navigation: NavigationItem[] = Object.entries(pageModules).reduce(
 
     item.sousChapitre.push({ label, href });
     return acc;
-  },
-  [],
-);
+  }, []);
+}

@@ -1,7 +1,9 @@
 ---
 import SidebarLink from './SidebarLink.astro';
-import { navigation } from '../data/navigation';
+import { getNavigation } from '../data/navigation';
 import { SITE_TITLE } from '../consts';
+
+const navigation = await getNavigation();
 ---
 <div
   x-data="{ open: false }"
