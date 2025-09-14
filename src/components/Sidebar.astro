@@ -1,6 +1,7 @@
 ---
-import HeaderLink from './HeaderLink.astro';
+import SidebarLink from './SidebarLink.astro';
 import { navigation } from '../data/navigation';
+import { SITE_TITLE } from '../consts';
 ---
 <div x-data="{ open: false }" x-init="open = window.innerWidth >= 768">
   <button class="md:hidden p-4 text-neutral-700" @click="open = !open">
@@ -13,6 +14,9 @@ import { navigation } from '../data/navigation';
     class="fixed inset-y-0 left-0 z-20 w-72 h-screen bg-white border-r md:relative md:block"
   >
     <div class="h-full overflow-y-auto p-4">
+      <h2 class="mb-4 text-lg font-semibold text-accent-700">
+        <a href="/" class="transition-colors hover:text-accent-500">{SITE_TITLE}</a>
+      </h2>
       {navigation.map((section) => (
         <div class="mb-4">
           <h2 class="mb-2 px-2 text-sm font-semibold text-neutral-700 uppercase">
@@ -20,12 +24,12 @@ import { navigation } from '../data/navigation';
           </h2>
           <nav class="flex flex-col">
             {section.sousChapitre.map((sub) => (
-              <HeaderLink
+              <SidebarLink
                 href={sub.href}
                 class="px-2 py-1 text-neutral-700 transition-colors hover:bg-accent-50 hover:text-accent-700"
               >
                 {sub.label}
-              </HeaderLink>
+              </SidebarLink>
             ))}
           </nav>
         </div>
