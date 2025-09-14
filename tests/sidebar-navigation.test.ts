@@ -4,7 +4,8 @@
  * Vérifie que le menu de navigation affiche chaque chapitre et ses sous-chapitres.
  * 1. Exécuter `npm run dev`.
  * 2. Ouvrir la page d'accueil dans un navigateur.
- * 3. Dans la barre latérale, s'assurer que les chapitres "I. Epargne salariale" à "VI. Guides pratiques" sont présents.
- * 4. Pour chaque chapitre, cliquer et vérifier que les sous-chapitres affichent les titres définis dans `src/data/navigation.ts` avec les bons liens.
-*/
+ * 3. Dans la barre latérale, contrôler que chaque chapitre défini dans `src/data/navigation.ts` est affiché.
+ * 4. Pour chaque chapitre, dérouler et vérifier que tous les sous-chapitres listent les bons titres et liens.
+ * 5. Passer en mode mobile, cliquer sur le bouton burger pour ouvrir le menu et s'assurer que chaque lien est accessible.
+ */
 export {};
