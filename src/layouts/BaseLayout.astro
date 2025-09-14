@@ -19,8 +19,8 @@ const { title, description, lang = 'fr' } = Astro.props as Props;
   <body class="bg-white text-gray-800">
     <div class="flex flex-col md:flex-row">
       <Sidebar />
-      <main class="flex-1 max-w-7xl mx-auto p-4 md:ml-72">
-        <article class="prose mx-auto">
+      <main class="flex-1 max-w-5xl mx-auto p-4 md:ml-72">
+        <article class="prose max-w-none mx-auto">
           <slot />
         </article>
       </main>
