@@ -1,6 +1,6 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
@@ -17,10 +17,12 @@ const { title, description, lang = 'fr' } = Astro.props as Props;
     <BaseHead {title} {description} />
   </head>
   <body class="bg-white text-gray-800">
-    <Header />
-    <main class="max-w-7xl mx-auto px-4">
-      <slot />
-    </main>
+    <div class="flex flex-col md:flex-row">
+      <Sidebar />
+      <main class="flex-1 max-w-7xl mx-auto px-4 md:ml-72">
+        <slot />
+      </main>
+    </div>
     <Footer />
   </body>
 </html>
