@@ -40,16 +40,19 @@ jobs:
         run: npm run build
 
       - name: Configure Pages
+        if: ${{ github.event.repository != null && github.event.repository.fork == false }}
         uses: actions/configure-pages@v5
         with:
           enablement: true
 
       - name: Upload artifact
+        if: ${{ github.event.repository != null && github.event.repository.fork == false }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
+    if: ${{ github.event.repository != null && github.event.repository.fork == false }}
     needs: build
     runs-on: ubuntu-latest
     environment:
