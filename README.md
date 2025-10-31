@@ -46,14 +46,13 @@ npm run preview # Serves the ./dist output so you can verify before deploying
 Deployments are handled by the workflow in `.github/workflows/deploy.yml`.
 
 1. **Trigger** – Every push to the `main` branch (or manual dispatch) runs the workflow.
-2. **Build job**
+2. **Build and deploy job**
    - Checks out the repository and sets up Node.js 20 with npm caching.
    - Installs dependencies with `npm ci` and builds the production site (`npm run build`).
-   - Uploads the generated `dist/` directory as the artifact that GitHub Pages expects.
-3. **Deploy job**
-   - Downloads the previously uploaded artifact.
-   - Publishes the static site using `actions/deploy-pages@v4`, creating or updating the `github-pages` environment.
+   - Publishes the contents of `dist/` to the `gh-pages` branch using `peaceiris/actions-gh-pages@v3`.
 
-> **Heads up:** The `astro.config.mjs` file automatically configures the correct `site` and `base` values for GitHub Pages by reading the `GITHUB_REPOSITORY` environment variable that the workflow sets during the build. No additional manual configuration is required once the workflow finishes.
+> **One-time setup:** Visit **Settings → Pages** and choose “Deploy from a branch”, then select the `gh-pages` branch with the `/ (root)` folder. GitHub will remember this setting for future runs.
+
+> **Heads up:** The `astro.config.mjs` file automatically configures the correct `site` and `base` values for GitHub Pages by reading the `GITHUB_REPOSITORY` environment variable that the workflow sets during the build, so no additional manual configuration is required after the initial setup.
 
 If you ever need to redeploy without pushing new changes, use the **Run workflow** button in the GitHub Actions tab and choose the `Deploy to GitHub Pages` workflow.
