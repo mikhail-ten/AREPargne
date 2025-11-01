@@ -3,14 +3,27 @@ import type { HTMLAttributes } from 'astro/types';
 
 type Props = HTMLAttributes<'a'>;
 
-const { href, class: className, ...props } = Astro.props;
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
-const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
+const { href, class: className, ...props } = Astro.props as Props;
+const base = import.meta.env.BASE_URL;
+const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+const escapeRegex = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const resolveInternalHref = (path: string) => `${normalizedBase}${path.replace(/^\//, '')}`;
+
+const isInternal = typeof href === 'string' && href.startsWith('/');
+const internalHref = isInternal ? (href as string) : '/';
+const resolvedHref = isInternal ? resolveInternalHref(internalHref) : (typeof href === 'string' ? href : '#');
+
+const pathname =
+  normalizedBase !== '/'
+    ? Astro.url.pathname.replace(new RegExp(`^${escapeRegex(normalizedBase)}`), '/')
+    : Astro.url.pathname;
+const subpath = pathname.match(/[^\\/]+/g);
+const isActive =
+  isInternal && (internalHref === pathname || internalHref === '/' + (subpath?.[0] ?? ''));
 ---
 
 <a
-  href={href}
+  href={resolvedHref}
   class:list={[className, 'inline-block no-underline', { 'font-bold underline': isActive }]}
   {...props}
 >
