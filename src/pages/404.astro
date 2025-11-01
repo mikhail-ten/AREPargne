@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const base = import.meta.env.BASE_URL ?? '/';
+const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+const redirectHref = normalizedBase;
+const absoluteRedirect = Astro.site ? new URL(normalizedBase, Astro.site).toString() : normalizedBase;
+---
+<BaseLayout title={`${SITE_TITLE} – Page introuvable`} description={SITE_DESCRIPTION}>
+  <Fragment slot="head">
+    <meta http-equiv="refresh" content={`0; url=${redirectHref}`} />
+  </Fragment>
+
+  <div class="space-y-4">
+    <h1 class="text-3xl font-bold text-accent-700">Page introuvable</h1>
+    <p class="text-neutral-700 font-lato">
+      La page que vous cherchez n'existe pas ou n'est plus disponible. Vous allez être redirigé·e vers l'accueil.
+    </p>
+    <p class="text-neutral-700 font-lato">
+      Si la redirection ne fonctionne pas, <a class="text-accent-700 underline" href={redirectHref}>cliquez ici pour revenir à
+      l'accueil</a>.
+    </p>
+  </div>
+
+  <script is:inline>
+    const target = {JSON.stringify(absoluteRedirect)};
+    if (typeof window !== 'undefined') {
+      const url = target.startsWith('http') ? target : new URL(target, window.location.origin).toString();
+      if (window.location.href !== url) {
+        window.location.replace(url);
+      }
+    }
+  </script>
+</BaseLayout>
