@@ -15,6 +15,7 @@ const { title, description, lang = 'fr' } = Astro.props as Props;
 <html lang={lang}>
   <head>
     <BaseHead {title} {description} />
+    <slot name="head" />
   </head>
   <body class="bg-white text-gray-800">
     <div class="flex flex-col md:flex-row">
