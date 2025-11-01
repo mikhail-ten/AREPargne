@@ -10,24 +10,15 @@ export interface NavigationItem {
   sousChapitre: SubChapitre[];
 }
 
+import { getChapterMetadata } from './chapters';
+
 interface PageModule {
   frontmatter: {
     title: string;
   };
 }
 
-interface MetaModule {
-  default: {
-    title: string;
-  };
-}
-
 const pageModules = import.meta.glob<PageModule>('../pages/*/*.mdx');
-
-const metaModules = import.meta.glob<MetaModule>(
-  '../pages/*/metadata.ts',
-  { eager: true },
-);
 
 export async function getNavigation(): Promise<NavigationItem[]> {
   const entries = await Promise.all(
@@ -44,8 +35,13 @@ export async function getNavigation(): Promise<NavigationItem[]> {
 
     let item = acc.find((i) => i.slug === slug);
     if (!item) {
-      const meta = metaModules[`../pages/${slug}/metadata.ts`];
-      item = { chapitre: meta.default.title, slug, sousChapitre: [] };
+      const meta = getChapterMetadata(slug);
+      item = {
+        chapitre: meta?.title ?? slug,
+        shortTitle: meta?.shortTitle,
+        slug,
+        sousChapitre: [],
+      };
       acc.push(item);
     }
 
